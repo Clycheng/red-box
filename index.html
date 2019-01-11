@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap {
+            width: 100%;
+            background: red;
+            position: relative;
+        }
+        .active {
+            position: absolute;
+            animation: move 30s 1
+        }
+        @keyframes move {
+            from {
+                top:-100px;
+            }to{
+                top:5000px;
+            }
+        }
+        .super-big{
+            width: 50px; 
+            height: 70px;
+            background: url("image/bg.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+        }
+        .big{
+            width: 40px; 
+            height: 60px;
+            background: url("image/bg.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+        }
+        .middle{
+            width: 30px; 
+            height: 50px;
+            background: url("image/bg.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+        }
+        .small{
+            width: 20px; 
+            height: 30px;
+            background: url("image/bg.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id = "wrap">
+    </div>
+    <script src = "jq.js"></script>
+    <script>
+        window.onload=function(){
+            console.log(document.documentElement.clientHeight)
+            var hei = document.documentElement.clientHeight
+            $("#wrap").css("height",hei)
+        }
+        function Init(claNum,leftNum,pices){
+            // this.name = ;
+        
+            this.left = leftNum;
+            this.claName = claNum
+            this.active  = "active"
+            this.tag = document.createElement("div");
+            this.tag.className=this.active
+            this.tag.style.top = "-100px";
+            this.tag.pices = pices
+        }
+        Init.prototype.gen=function(){
+          this.tag.classList.add(this.claName);
+          document.getElementById("wrap").appendChild(this.tag);
+          $(this.tag).css("left",this.left)
+        }
+        var  price = [0,100,200,350,500,700,800,1000]
+        var claName = ["super-big","big","middle","small"]
+        setInterval(() => {
+            // 选取下标
+            var priceNum = Math.round(Math.random()*7);
+            var claNumber = Math.round(Math.random()*3);
+            var leftNumber = Math.round(Math.random()*1200);
+            // 选取数据内容
+            var prices = price[priceNum]
+            var classNames = claName[claNumber];
+            // console.log(leftNumber)
+            var news = new Init(classNames,leftNumber,prices);
+            news.gen(); 
+        }, 500);
+        var wrap = document.getElementById("wrap");
+        wrap.addEventListener("click",function(e){
+            if (e.target.className = "active"){
+                console.log("color:red",1)
+            }
+        })
+    </script>
+
+</body>
+</html>
